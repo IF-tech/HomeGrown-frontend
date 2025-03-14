@@ -1,8 +1,10 @@
 // app/(tabs)/farmList.tsx
+
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Image, Dimensions } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_FARMS } from "@/scripts/graphql/queries";
+import { Link } from "expo-router";
 
 type Farm = {
   id: string;
@@ -69,6 +71,13 @@ const FarmListScreen = () => {
       <Text style={styles.ownerName}>Owner: {item.ownerName}</Text>
       <Text style={styles.address}>{item.address}</Text>
       <Text style={styles.ratings}>Rating: {item.ratings} ⭐</Text>
+  
+      {/* Update the Link to point to the new location */}
+      <Link href={`/farmDetails?id=${item.id}`} asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>View Details</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 
@@ -101,7 +110,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    maxWidth: 350
+    maxWidth: 350,
   },
   image: {
     width: "100%",
@@ -131,6 +140,18 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     justifyContent: "space-between", // Add spacing between columns
+  },
+  button: {
+    backgroundColor: "#007BFF",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
