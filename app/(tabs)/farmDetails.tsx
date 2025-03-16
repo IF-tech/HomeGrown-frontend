@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
       padding: 16,
    },
    image: {
-      width: "25%",
+      width: 300,
       height: 200,
       borderRadius: 8,
       marginBottom: 16,

@@ -2,6 +2,13 @@
   "expo": {
     "name": "HomeGrown-frontend",
     "slug": "HomeGrown-frontend",
+    "extra": {
+      "AWSAUTH_REGION": "us-west-2",
+      "AWSAUTH_USERPOOLID": "us-west-2_YExRVLcSz",
+      "AWSAUTH_APPCLIENTID": "6363qjo5gjhjumnnt3p9m96vgv",
+      "AWSAUTH_IDENTITYPOOLID": "us-west-2:42d286bc-1c3e-479b-9ffc-fade9edbfabb",
+      "AWSAUTH_COGNITODOMAIN": "https://us-west-2yexrvlcsz.auth.us-west-2.amazoncognito.com"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,10 +19,13 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [{ "scheme": "myapp" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "bundler": "metro",

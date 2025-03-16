@@ -10,12 +10,13 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { ApolloProvider } from "@apollo/client"; // Import ApolloProvider
 import client from "@/scripts/apolloClient"; // Import your Apollo Client instance
 
+
+
 export default function TabLayout() {
    const colorScheme = useColorScheme();
 
    return (
       <ApolloProvider client={client}>
-         {" "}
          {/* Wrap the Tabs with ApolloProvider */}
          <Tabs
             screenOptions={{
