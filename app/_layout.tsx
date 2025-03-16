@@ -14,7 +14,7 @@ import { Authenticator } from "@aws-amplify/ui-react-native";
 Amplify.configure(awsConfig as any);
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+//SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const colorScheme = useColorScheme();
