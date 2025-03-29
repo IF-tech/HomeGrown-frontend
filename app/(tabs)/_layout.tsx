@@ -7,8 +7,7 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { ApolloProvider } from "@apollo/client"; // Import ApolloProvider
-import client from "@/scripts/apolloClient"; // Import your Apollo Client instance
+
 
 
 
@@ -16,8 +15,7 @@ export default function TabLayout() {
    const colorScheme = useColorScheme();
 
    return (
-      <ApolloProvider client={client}>
-         {/* Wrap the Tabs with ApolloProvider */}
+      
          <Tabs
             screenOptions={{
                tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -69,6 +67,6 @@ export default function TabLayout() {
                }}
             />
          </Tabs>
-      </ApolloProvider>
+     
    );
 }

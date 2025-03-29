@@ -22,6 +22,7 @@ export const GET_ALL_FARMS = gql`
         quantity
         price
         pictures
+        farmid
       }
     }
   }
@@ -47,6 +48,7 @@ export const GET_FARM_BY_ID = gql`
         quantity
         price
         pictures
+        farmid
       }
     }
   }

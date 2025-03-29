@@ -1,51 +1,70 @@
 {
-  "expo": {
-    "name": "HomeGrown-frontend",
-    "slug": "HomeGrown-frontend",
-    "extra": {
-      "AWSAUTH_REGION": "us-west-2",
-      "AWSAUTH_USERPOOLID": "us-west-2_YExRVLcSz",
-      "AWSAUTH_APPCLIENTID": "6363qjo5gjhjumnnt3p9m96vgv",
-      "AWSAUTH_IDENTITYPOOLID": "us-west-2:42d286bc-1c3e-479b-9ffc-fade9edbfabb",
-      "AWSAUTH_COGNITODOMAIN": "https://us-west-2yexrvlcsz.auth.us-west-2.amazoncognito.com"
-    },
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
-    },
+   "expo": {
+      "name": "HomeGrown-frontend",
+      "slug": "HomeGrown-frontend",
+      "extra": {
+         "AWSAUTH_REGION": "us-west-2",
+         "AWSAUTH_USERPOOLID": "us-west-2_YExRVLcSz",
+         "AWSAUTH_APPCLIENTID": "6363qjo5gjhjumnnt3p9m96vgv",
+         "AWSAUTH_IDENTITYPOOLID": "us-west-2:42d286bc-1c3e-479b-9ffc-fade9edbfabb",
+         "AWSAUTH_COGNITODOMAIN": "https://us-west-2yexrvlcsz.auth.us-west-2.amazoncognito.com"
+      },
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/images/icon.png",
+      "scheme": "myapp",
+      "userInterfaceStyle": "automatic",
+      "newArchEnabled": true,
+      "ios": {
+         "supportsTablet": true,
+         "config": {
+            "googleMapsApiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+         }
+      }
+   },
     "android": {
       "intentFilters": [
-        {
-          "action": "VIEW",
-          "data": [{ "scheme": "myapp" }],
-          "category": ["BROWSABLE", "DEFAULT"]
+         {
+            "action": "VIEW",
+            "data": [{ "scheme": "myapp" }],
+            "category": ["BROWSABLE", "DEFAULT"]
+         }
+      ],
+      "config": {
+         "googleMaps": {
+            "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+         }
+      },
+      "web": {
+         "bundler": "metro",
+         "output": "static",
+         "favicon": "./assets/images/favicon.png",
+         "build": {
+         "babel": {
+          "include": ["react-native-web-maps"]
         }
-      ]
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true
+      }
     }
-  }
-}
+      },
+      "plugins": [
+         "expo-router",
+         [
+            "expo-splash-screen",
+            {
+               "image": "./assets/images/splash-icon.png",
+               "imageWidth": 200,
+               "resizeMode": "contain",
+               "backgroundColor": "#ffffff"
+            }
+         ],
+         [
+            "expo-location",
+            {
+               "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+            }
+         ]
+      ],
+      "experiments": {
+         "typedRoutes": true
+      }
+   }

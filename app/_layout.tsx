@@ -1,6 +1,10 @@
 import { Amplify } from "aws-amplify";
 import awsConfig from "../scripts/aws-exports";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import {
+   DarkTheme,
+   DefaultTheme,
+   ThemeProvider,
+} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -9,7 +13,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { withAuthenticator } from "@aws-amplify/ui-react-native";
-import { Authenticator } from "@aws-amplify/ui-react-native"; 
+import { Authenticator } from "@aws-amplify/ui-react-native";
+import { ApolloProvider } from "@apollo/client"; // Import ApolloProvider
+import client from "@/scripts/apolloClient"; // Import your Apollo Client instance
 
 Amplify.configure(awsConfig as any);
 
@@ -17,32 +23,40 @@ Amplify.configure(awsConfig as any);
 //SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
+   const colorScheme = useColorScheme();
+   const [loaded] = useFonts({
+      SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+   useEffect(() => {
+      if (loaded) {
+         SplashScreen.hideAsync();
+      }
+   }, [loaded]);
 
-  if (!loaded) {
-    return null; // Return null or a loading spinner while fonts are loading
-  }
+   if (!loaded) {
+      return null; // Return null or a loading spinner while fonts are loading
+   }
 
-  return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+   return (
+      <ApolloProvider client={client}>
+         {/* Wrap the Tabs with ApolloProvider */}
+         <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+         >
+            <Stack>
+               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+               <Stack.Screen name="+not-found" />
+            </Stack>
+            <StatusBar style="auto" />
+         </ThemeProvider>
+      </ApolloProvider>
+   );
 }
 
 // Apply the authenticator to the RootLayout component
-const App = withAuthenticator(RootLayout)
+// const App = withAuthenticator(RootLayout);
+// export default App;
+
+const App = RootLayout
 export default App;

@@ -1,31 +1,11 @@
-// app/(tabs)/farmDetails.tsx
-
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@apollo/client";
 import { GET_FARM_BY_ID } from "@/scripts/graphql/queries";
+import { Farm } from "@/constants/types"
 
-type Farm = {
-   id: string;
-   farmName: string;
-   ownerName: string;
-   address: string;
-   latitude: number;
-   longitude: number;
-   pictures: string[];
-   description: string;
-   tags: string[];
-   ratings: number;
-   products: {
-      id: string;
-      name: string;
-      availability: boolean;
-      quantity: number;
-      price: number;
-      pictures: string[];
-   }[];
-};
+
 
 const FarmDetailsScreen = () => {
    const { id } = useLocalSearchParams<{ id: string }>();
@@ -52,19 +32,23 @@ const FarmDetailsScreen = () => {
          <Text style={styles.description}>{farm.description}</Text>
 
          <Text style={styles.sectionTitle}>Products</Text>
-         {products.map((product) => (
-            <View key={product.id} style={styles.productCard}>
-               <Image
-                  source={{ uri: product.pictures[0] }}
-                  style={styles.productImage}
-               />
-               <Text style={styles.productName}>{product.name}</Text>
-               <Text style={styles.productPrice}>Price: ${product.price}</Text>
-               <Text style={styles.productAvailability}>
-                  {product.availability ? "Available" : "Out of Stock"}
-               </Text>
-            </View>
-         ))}
+         {products.length > 0 ? (
+            products.map((product) => (
+               <View key={product.id} style={styles.productCard}>
+                  <Image
+                     source={{ uri: product.pictures[0] }}
+                     style={styles.productImage}
+                  />
+                  <Text style={styles.productName}>{product.name}</Text>
+                  <Text style={styles.productPrice}>Price: ${product.price}</Text>
+                  <Text style={styles.productAvailability}>
+                     {product.availability ? "Available" : "Out of Stock"}
+                  </Text>
+               </View>
+            ))
+         ) : (
+            <Text style={styles.noProductsText}>No products available.</Text>
+         )}
 
          <Text style={styles.sectionTitle}>Comments</Text>
          {/* Add a comments section here */}
@@ -77,7 +61,7 @@ const styles = StyleSheet.create({
       padding: 16,
    },
    image: {
-      width: 300,
+      width: 350,
       height: 200,
       borderRadius: 8,
       marginBottom: 16,
@@ -124,8 +108,8 @@ const styles = StyleSheet.create({
       elevation: 3,
    },
    productImage: {
-      width: "100%",
-      height: 100,
+      width: 300,
+      height: 150,
       borderRadius: 8,
       marginBottom: 8,
    },
@@ -143,6 +127,12 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: "#666",
    },
+   noProductsText: {
+      fontSize: 16,
+      color: "#999",
+      textAlign: "center",
+      marginTop: 16,
+   },
 });
 
-export default FarmDetailsScreen;
+export default FarmDetailsScreen; 
